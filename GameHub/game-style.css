@@ -1,0 +1,117 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { background-color: #08090d; color: #ffffff; text-align: center; padding-top: 100px; overflow-x: hidden; }
+
+nav { background: #0f111a; border-bottom: 2px solid #6c5ce7; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; }
+.logo { font-size: 24px; font-weight: bold; color: #00cecb; text-decoration: none; text-shadow: 0 0 10px #00cecb; }
+.logo span { color: #6c5ce7; text-shadow: 0 0 10px #6c5ce7; }
+.btn-back { padding: 8px 15px; background: #6c5ce7; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; box-shadow: 0 0 10px rgba(108,92,231,0.5); }
+
+h1 { font-size: 32px; text-shadow: 0 0 15px #6c5ce7; margin-bottom: 5px; }
+.score-board { font-size: 28px; margin-top: 10px; color: #00cecb; font-weight: bold; text-shadow: 0 0 15px #00cecb; }
+.instructions { color: #747d8c; margin-top: 10px; font-size: 15px; }
+.instructions span { color: #00cecb; font-weight: bold; }
+
+#game-container { 
+    position: relative; 
+    width: 800px; 
+    height: 350px; 
+    background: linear-gradient(180deg, #0f111a 0%, #151824 100%); 
+    margin: 25px auto; 
+    border: 3px solid #6c5ce7; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 0 30px rgba(108, 92, 231, 0.4), inset 0 0 20px rgba(0,0,0,0.6); 
+    cursor: pointer;
+}
+
+.floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(90deg, #1e2235 25%, transparent 25%, transparent 75%, #1e2235 75%),
+                linear-gradient(90deg, #1e2235 25%, transparent 25%, transparent 75%, #1e2235 75%);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    border-top: 4px solid #6c5ce7;
+    box-shadow: 0 -5px 15px rgba(108,92,231,0.3);
+    animation: floorScroll 0.4s linear infinite;
+}
+@keyframes floorScroll {
+    0% { background-position-x: 0px; }
+    100% { background-position-x: -40px; }
+}
+
+#dino { 
+    position: absolute; 
+    left: 60px; 
+    bottom: 40px; 
+    width: 45px; 
+    height: 35px; 
+    background: linear-gradient(135deg, #00cecb 0%, #00a8a5 100%); 
+    border-radius: 40% 70% 40% 40%;
+    box-shadow: 0 0 20px #00cecb, 0 0 5px #fff; 
+    animation: hoverEffect 0.3s ease-in-out infinite alternate;
+    z-index: 2;
+}
+#dino::after { content: ''; position: absolute; top: 6px; right: 8px; width: 12px; height: 10px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #fff; }
+#dino::before { content: ''; position: absolute; left: -10px; top: 12px; width: 12px; height: 12px; background: #ff9f43; border-radius: 50%; box-shadow: 0 0 15px #ff9f43; filter: blur(1px); }
+
+@keyframes hoverEffect {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-3px); }
+}
+
+.jump { animation: jumpAnim 0.65s cubic-bezier(0.25, 1, 0.5, 1) !important; }
+@keyframes jumpAnim {
+    0% { bottom: 40px; transform: rotate(0deg); }
+    40% { bottom: 200px; transform: rotate(-15deg); }
+    60% { bottom: 200px; transform: rotate(-15deg); transform: rotate(-15deg); }
+    100% { bottom: 40px; transform: rotate(0deg); }
+}
+
+#cactus { 
+    position: absolute; 
+    left: 760px; 
+    bottom: 40px; 
+    width: 25px; 
+    height: 60px; 
+    background: linear-gradient(180deg, #ff7675 0%, #ff4757 100%); 
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 0 25px #ff4757, 0 0 10px #ff7675; 
+    z-index: 2;
+    animation: laserPulse 0.2s linear infinite alternate;
+}
+@keyframes laserPulse {
+    0% { opacity: 0.9; box-shadow: 0 0 20px #ff4757; }
+    100% { opacity: 1; box-shadow: 0 0 30px #ff4757, 0 0 10px #fff; }
+}
+
+#game-over-screen { 
+    display: none; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(10, 11, 18, 0.96); 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 10; 
+}
+.btn-restart { 
+    padding: 14px 35px; 
+    background: linear-gradient(135deg, #00cecb 0%, #00a8a5 100%); 
+    color: #0d0e12; 
+    border: none; 
+    border-radius: 8px; 
+    font-size: 20px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-top: 20px; 
+    box-shadow: 0 0 15px rgba(0,206,203,0.5);
+    transition: 0.3s; 
+}
+.btn-restart:hover { transform: scale(1.05); box-shadow: 0 0 25px #00cecb; }
